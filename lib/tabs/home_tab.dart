@@ -75,12 +75,12 @@ class HomeTab extends StatelessWidget {
                     //Obtendo cada um dos documentos do Firebase com as dimensões individuais,
                     //convertendo essas dimenções para o tipo
                     // para colocar na GridView
-                    children: snapshot.data.docs.map((doc) {
-                      var teste = snapshot.data.docs.toString();
+                    children: snapshot.data!.docs.map((doc) {
+                      var teste = snapshot.data!.docs.toString();
                       return StaggeredGrid.count(
                         mainAxisSpacing: (doc.data()['x']),
                         crossAxisCount: (doc.data()['y']).toDouble(),
-                        children: snapshot.data.docs.map((doc) {
+                        children: snapshot.data!.docs.map((doc) {
                           //FadeInImage - Armazena a Image e mostra a imagem
                           //Com efeito FadIn
                           return FadeInImage.memoryNetwork(

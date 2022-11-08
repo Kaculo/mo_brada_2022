@@ -60,7 +60,7 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              else
+              else {
                 return TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
@@ -75,10 +75,10 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
                           crossAxisSpacing: 4.0,
                           childAspectRatio: 0.65,
                         ),
-                        itemCount: snapshot.data.docs.length,
+                        itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context, index) {
                           StoreData data = StoreData.fromDocument(
-                              snapshot.data.docs[index]);
+                              snapshot.data!.docs[index]);
 
                           //PEGANDO A CATEGORIA DO PRODUTO
                           //Aqui utilizamos "this.snapshot" para chamar o
@@ -90,10 +90,10 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
                         }),
                     ListView.builder(
                         padding: EdgeInsets.all(4.0),
-                        itemCount: snapshot.data.docs.length,
+                        itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context, index) {
                           StoreData data = StoreData.fromDocument(
-                              snapshot.data.docs[index]);
+                              snapshot.data!.docs[index]);
                           //todo: configurar quando separar as lojas por categoria
                           //data.category = this.snapshot.documentID;
                           return Store_List_Tile(
@@ -101,6 +101,7 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
                         })
                   ],
                 );
+              }
             },
           )),
     );

@@ -24,14 +24,14 @@ class DrawerTile extends StatelessWidget {
               Icon(
                 icon,
                 size: 32.0,
-                color: controller.page.round() == page ? Theme.of(context).primaryColorDark : Colors.grey[700],
+                color: controller.page?.round() == page ? Theme.of(context).primaryColorDark : Colors.grey[700],
               ),
               SizedBox(
                 width: 32.0,
               ),
               Text(
                 text,
-                style: TextStyle(fontSize: 16.0,color: controller.page.round() == page ? Theme.of(context).primaryColorDark : Colors.grey[700],),
+                style: TextStyle(fontSize: 16.0,color: controller.page?.round() == page ? Theme.of(context).primaryColorDark : Colors.grey[700],),
               )
             ],
           ),

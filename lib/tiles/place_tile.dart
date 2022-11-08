@@ -18,7 +18,7 @@ class PlacesTile extends StatelessWidget {
           SizedBox(
             height: 100.0,
             child: Image.network(
-              snapshot.data()["imsge"],
+              snapshot.data()!["imsge"],
               fit: BoxFit.cover,
             ),
           ),
@@ -28,11 +28,11 @@ class PlacesTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  snapshot.data()["title"],
+                  snapshot.data()!["title"],
                   textAlign: TextAlign.start,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
                 ),
-                Text(snapshot.data()["address"],
+                Text(snapshot.data()!["address"],
                 textAlign: TextAlign.start,)
               ],
             ),
@@ -43,8 +43,8 @@ class PlacesTile extends StatelessWidget {
               child: Text("Ver no Mapa", style: TextStyle(color: Colors.blue),),
 
               onPressed: (){
-                launch("https://www.google.com/maps/search/?api=1&query=${snapshot.data()["lat"]},"
-                    "${snapshot.data()["long"]}");
+                launch("https://www.google.com/maps/search/?api=1&query=${snapshot.data()!["lat"]},"
+                    "${snapshot.data()!["long"]}");
               },
             ),
               TextButton(
@@ -54,7 +54,7 @@ class PlacesTile extends StatelessWidget {
                 child: Text("Ligar", style: TextStyle(color: Colors.blue,),),
                 onPressed:  (){
                   //"launch" aqui estamos a utilizar para abrir
-                  launchUrlString("tel:${snapshot.data()["phone"]}");
+                  launchUrlString("tel:${snapshot.data()!["phone"]}");
                 },)
                 ],
           )

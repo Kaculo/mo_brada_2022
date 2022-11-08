@@ -8,7 +8,7 @@ class InputField extends StatelessWidget {
  final Stream<String> stream;
  final Function(String) onChanged;
 
- InputField({this.icon, this.hint, this.obscure, this.stream, this.onChanged});
+ InputField({required this.icon, required this.hint, required this.obscure, required this.stream, required this.onChanged});
 
 
   @override
@@ -25,13 +25,13 @@ class InputField extends StatelessWidget {
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.red[700])
             ),
-            contentPadding: EdgeInsets.only(
+            contentPadding: const EdgeInsets.only(
               left: 5,
               right: 30,
               bottom: 30,
               top: 30,
             ),
-            errorText: snapshot.hasError ? snapshot.error : null,
+            errorText: snapshot.hasError ? snapshot.error.toString() : null,
           ),
           style: TextStyle(color: Colors.white),
             obscureText: obscure,

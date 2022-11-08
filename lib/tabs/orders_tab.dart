@@ -15,8 +15,8 @@ class OrdersTab extends StatelessWidget {
 
       getCurrentUser() {
         _loginBLoc.outCurrentUser.listen((state) async {
-          String UserID;
-          UserID = await currentuser.uid;
+          late String UserID;
+          UserID = (await currentuser?.uid)!;
           return UserID;
         });
       }
@@ -34,7 +34,7 @@ class OrdersTab extends StatelessWidget {
             child: CircularProgressIndicator(),
           ); else{
             return ListView(
-              children: snapshot.data.docs
+              children: snapshot.data?.docs
               .map((doc) => OrderTile(doc.id)).toList().reversed.toList(),
             ) ;        }
         },

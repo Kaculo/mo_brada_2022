@@ -14,10 +14,10 @@ class CategoryTile extends StatelessWidget {
       leading: CircleAvatar(
         radius: 25.0,
         backgroundColor: Colors.transparent,
-        backgroundImage: NetworkImage(snapshot.data()['icon']),
+        backgroundImage: NetworkImage(snapshot.data()!['icon']),
       ),
       title: Text(
-          snapshot.data()['title']),
+          snapshot.data()!['title']),
       //trailing - É o elemento que fica no final de cada Row da ListTile
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {

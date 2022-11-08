@@ -111,7 +111,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                 border: Border.all(
                                     color: tamanho_Selecionado == size
                                         ? primaryColor
-                                        : Colors.grey[500],
+                                        : Colors.grey,
+                                    /**Aqui havia um grey[500] para demonstrar desactivação**/
                                     width: 3.0)),
                             width: 50.0,
                             alignment: Alignment.center,

@@ -46,7 +46,7 @@ class CategoryScreen extends StatelessWidget {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              else
+              else {
                 return TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
@@ -64,7 +64,7 @@ class CategoryScreen extends StatelessWidget {
                         itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context, index) {
                           ProductData data = ProductData.fromDocument(
-                              snapshot.data?.docs[index]!);
+                              snapshot.data!.docs[index]);
 
                           //PEGANDO A CATEGORIA DO PRODUTO
                           //Aqui utilizamos "this.snapshot" para chamar o
@@ -78,13 +78,14 @@ class CategoryScreen extends StatelessWidget {
                         itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context, index) {
                           ProductData data = ProductData.fromDocument(
-                              snapshot.data?.docs[index]!);
+                              snapshot.data!.docs[index]);
                           data.category = this.snapshot.id;
                           return ProductTile(
                               "list",data);
                         })
                   ],
                 );
+              }
             },
           )),
     );

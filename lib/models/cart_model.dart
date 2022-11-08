@@ -106,7 +106,7 @@ void addCartItem(cartProduct){
 
     if(price != null && c.quantity != null) {
 
-      price  += (c.quantity! * c.productData!.price)!;
+      price  += (c.quantity! * c.productData!.price);
     }
 
 

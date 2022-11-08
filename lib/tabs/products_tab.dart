@@ -26,7 +26,7 @@ class ProductsTab extends StatelessWidget {
                         //Esta Função pega cada documento dentro do snapshot,
                         //transforma em "CategoryTile" e transforma conjunto
                         // de itens retornados em uma Lista
-                        snapeshot.data.docs.map((doc) {
+                        snapeshot.data?.docs.map((doc) {
                       return CategoryTile(doc);
                     }).toList(),
                     color: Colors.grey[500])

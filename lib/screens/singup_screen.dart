@@ -134,7 +134,7 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
                           ),
 
                           onPressed: () {
-                            if (_formKey.currentState.validate()) {
+                            if (_formKey.currentState!.validate()) {
                               //POR QUESTÕES DE SEGURANÇA NÃO ARMAZENAMOS
                               //A SENHA JUNTO COM O USUÁRIO
                               Map<String, dynamic> userData = {

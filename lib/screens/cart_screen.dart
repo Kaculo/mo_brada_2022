@@ -31,15 +31,15 @@ class CartScreen extends StatelessWidget {
                 stream: _cartBloc.outData,
                 builder: (context, snapshot) {
                   int nrItemsInCart = _cartBloc.products.length;
-                  if(snapshot.hasData)
-                  return
+                  if(snapshot.hasData) {
+                    return
                     Text(
                     //Se "nr_items_in_cart" for null ele retorna 0
-                    "${nrItemsInCart ?? 0} ${nrItemsInCart == 1
+                    "${nrItemsInCart} ${nrItemsInCart == 1
                         ? "ITEM"
                         : "ITENS"}",
                     style: TextStyle(fontSize: 17.0),);
-                  else {
+                  } else {
                     return Container();
                   }
                 },

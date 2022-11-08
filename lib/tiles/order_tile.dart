@@ -32,12 +32,12 @@ class OrderTile extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             else {
-              int status = snapshot.data.data()["status"];
+              int status = snapshot.data?.data()!["status"];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Código do pedido: ${snapshot.data.id}",
+                    "Código do pedido: ${snapshot.data?.id}",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 4.0,),
@@ -77,17 +77,17 @@ class OrderTile extends StatelessWidget {
     );
   }
 
- String _buildProductsText(DocumentSnapshot<Map<String, dynamic>> snapshot){
+ String _buildProductsText(DocumentSnapshot<Map<String, dynamic>>? snapshot){
     String text = "Descrição:\n";
 
     //Utilizamos "LinkedHasMap" porque as listas criadas nos documents
     //na base de dados do FireseBase, não são Listas normais
     //são do tipo "LinkedHasMap"
-    for(LinkedHashMap p in snapshot.data()["products"]){
+    for(LinkedHashMap p in snapshot?.data()!["products"]){
         text += "${p["quantity"]} x ${p["product"]["title"]} (${p["product"]["price"].toStringAsFixed(2)} Kz)\n";
 
     }
-     text += "Total: ${snapshot.data()["totalPrice"].toStringAsFixed(2)}";
+     text += "Total: ${snapshot?.data()!["totalPrice"]?.toStringAsFixed(2)}";
 
     return text;
  }
@@ -100,7 +100,7 @@ class OrderTile extends StatelessWidget {
     Widget child;
 
     if(status < thisStatus){
-      backColor = Colors.grey[500];
+      backColor = Colors.grey[500]!;
       child = Text(title, style: TextStyle(color: Colors.white),);
     } else if (status == thisStatus){
       backColor = Colors.blue;

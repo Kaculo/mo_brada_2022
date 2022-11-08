@@ -36,10 +36,10 @@ class DiscountCard extends StatelessWidget {
                 .then((docSnap) {
               //SE O CÓDIGO DO CUPOM INSERIDO ESTIVER CERTO
               if (docSnap.data != null) {
-                _cartBloc..setCoupom(text, docSnap.data()["percent"]);
+                _cartBloc..setCoupom(text, docSnap.data()!["percent"]);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(
-                      "Desconto de ${docSnap.data()["percent"]}% aplicado!"),
+                      "Desconto de ${docSnap.data()!["percent"]}% aplicado!"),
                   backgroundColor: Theme.of(context).primaryColor,));
               }
               //CASO O CUPON NÃO SEJA VÁLIDO

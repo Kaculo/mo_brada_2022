@@ -37,7 +37,7 @@ class CartBloc extends BlocBase {
     notifyListeners();
   }
 
-  void setCoupom(String coupomCode, int discountPercentage){
+  void setCoupom(String? coupomCode, int discountPercentage){
     this.couponCode = couponCode;
     this.discountPercentage = discountPercentage;
   }
@@ -59,7 +59,7 @@ class CartBloc extends BlocBase {
 
         if(price != null && c.quantity != null) {
 
-          price  += (c.quantity! * c.productData!.price)!;
+          price  += (c.quantity! * c.productData!.price);
         }
     } return price;
 
