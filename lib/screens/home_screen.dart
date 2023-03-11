@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
               showUnselectedLabels: false,
 
 
-            items: [
+            items: const [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), label: "Início"),
               BottomNavigationBarItem(

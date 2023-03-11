@@ -23,7 +23,7 @@ class InputField extends StatelessWidget {
             hintText: hint,
             hintStyle: TextStyle(color: Colors.white),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.red[700])
+              borderSide: BorderSide(color: Colors.red[700]!)
             ),
             contentPadding: const EdgeInsets.only(
               left: 5,

@@ -8,7 +8,7 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     //Função que cria fundo com efeito gradiente degrade
     Widget _buildBodyBack() => Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
               Color.fromARGB(
@@ -35,7 +35,7 @@ class HomeTab extends StatelessWidget {
         CustomScrollView(
           slivers: <Widget>[
             //Dentro do SiverAppbar, todos widgits têm que ser do tipo silver
-            SliverAppBar(
+            const SliverAppBar(
               floating: true,
               //snap: faz com que o elemento desaparece
               // a medida que for rolando a ScrollView.
@@ -43,57 +43,60 @@ class HomeTab extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0.0,
               flexibleSpace: FlexibleSpaceBar(
-                title: const Text('Em destaque'),
+                title: Text('Em destaque'),
                 centerTitle: true,
               ),
             ),
-            FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              future: FirebaseFirestore.instance
-                  .collection("home")
-                  .orderBy("pos")
-                  .get(),
-              builder: (context, snapshot) {
-                //se o snapshot não possui dados, apresentado a barra de progresso!
-                if (!snapshot.hasData)
-                  //SliverToBoxAdapter - para adaptar um widgets não silver dentro de silvers
-                  return SliverToBoxAdapter(
-                    child: Container(
-                      height: 200.0,
-                      alignment: Alignment.center,
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            SliverToBoxAdapter(
+              child: FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                future: FirebaseFirestore.instance
+                    .collection("home")
+                    .orderBy("pos")
+                    .get(),
+                builder: (context, snapshot) {
+                  //se o snapshot não possui dados, apresentado a barra de progresso!
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: Container(
+                        height: 200.0,
+                        alignment: Alignment.center,
+                        child: const CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
                       ),
-                    ),
-                  );
-                else {
-                  return
-                      //SliverStaggeredGrid - é o plugn que permite criar GridView com tamanhos diferentes
-                      StaggeredGrid.count(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 1.0,
-                    crossAxisSpacing: 1.0,
-                    //Obtendo cada um dos documentos do Firebase com as dimensões individuais,
-                    //convertendo essas dimenções para o tipo
-                    // para colocar na GridView
-                    children: snapshot.data!.docs.map((doc) {
-                      var teste = snapshot.data!.docs.toString();
-                      return StaggeredGrid.count(
-                        mainAxisSpacing: (doc.data()['x']),
-                        crossAxisCount: (doc.data()['y']).toDouble(),
-                        children: snapshot.data!.docs.map((doc) {
-                          //FadeInImage - Armazena a Image e mostra a imagem
-                          //Com efeito FadIn
-                          return FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            image: doc.data()["image"],
-                            fit: BoxFit.cover,
-                          );
-                        }).toList(),);
-                    }).toList(),
+                    );
+                  } else {
+                    return
+                        //SliverStaggeredGrid - é o plugn que permite criar GridView com tamanhos diferentes
+                        StaggeredGrid.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 1.0,
+                      crossAxisSpacing: 1.0,
+                      //Obtendo cada um dos documentos do Firebase com as dimensões individuais,
+                      //convertendo essas dimenções para o tipo
+                      // para colocar na GridView
+                      children: snapshot.data!.docs.map((doc) {
+                        var teste = snapshot.data!.docs.toString();
 
-                  );
-                }
-              },
+                           return StaggeredGrid.count(
+                          mainAxisSpacing: (doc.data()['x']).toDouble(),
+                          crossAxisCount: (doc.data()['y']),
+                          children: snapshot.data!.docs.map((doc) {
+
+                            //FadeInImage - Armazena a Image e mostra a imagem
+                            //Com efeito FadIn
+                            return FadeInImage.memoryNetwork(
+                              placeholder: kTransparentImage,
+                              image: doc.data()["image"],
+                              fit: BoxFit.cover,
+                            );
+                          }).toList(),);
+                      }).toList(),
+
+                    );
+                  }
+                },
+              ),
             )
           ],
         )

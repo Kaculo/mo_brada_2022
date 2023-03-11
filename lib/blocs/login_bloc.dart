@@ -8,7 +8,7 @@ import 'package:mo_brada_2022/validators/loging_validators.dart';
 import 'package:rxdart/rxdart.dart';
 
 //Todo: Saber exactamente o que é um enumerador
-/**ESTADOS DO PROCESSO DE LOGIN**/
+/// ESTADOS DO PROCESSO DE LOGIN*
 enum LoginState {IDLE, LOADING, SUCCESS, FAIL}
 
 User? currentuser;
@@ -41,7 +41,8 @@ class LoginBLoc extends BlocBase with LoginValidators {
   }
 
   bool isLoggedIn() {
-    return firebaseUser != null;
+    print("*************O email do user é ${userData.isEmpty}");
+    return currentuser != null;
   }
 
   void singUp({
@@ -99,8 +100,7 @@ class LoginBLoc extends BlocBase with LoginValidators {
 
   //Função que carrega os dados usuário actual
   Future<Null> _loadCurrentUser() async {
-    if (currentuser == null)
-      currentuser = await _auth.currentUser;
+    currentuser ??= await _auth.currentUser;
     if (currentuser != null) {
       //Se Carregando dados do User
       if (userData["name"] == null) {
@@ -108,28 +108,29 @@ class LoginBLoc extends BlocBase with LoginValidators {
         await FirebaseFirestore.instance.collection("users").
         doc(currentuser?.uid).get();
         userData = docUser.data() as Map<String, dynamic>;
+        print("************* Ao carregar o user estes estva ${userData.isEmpty}");
       }
     }
   }
 
 
   /**CRIANDO CONTROLADORES PARA OS TEXTFIELDS DA LOGIN_SCREEN**/
-  /*****************************.******************************/
+  /// ***************************.*****************************
   //O controlador é do tipo do conteudo que vai passar por ele
   //nete caso como é para o email, então é String
   final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
 
 
-  //_stateController vai controlar em q estado está o login e
+  // _stateController vai controlar em q estado está o login e
   // reportar essa informação para p.ex mudar a tela de login
-  //LoginState é o tipo do enumeradr que criamos
+  // LoginState é o tipo do enumeradr que criamos
   final _stateController = BehaviorSubject<LoginState>();
 
   final _currentUserController = BehaviorSubject<User?>();
 
   /**CRIANDO AS STREAMS DOS CONTROLADORES CRIADOS**/
-  /*****************************.******************************/
+  /// ***************************.*****************************
   //Stream é por onde sai o conteudo que passa pelo controlador.
 
   Stream <String> get outEmail =>
@@ -160,7 +161,6 @@ class LoginBLoc extends BlocBase with LoginValidators {
 
   Function(String) get changePassword => _passwordController.sink.add;
 
-
   StreamSubscription? _streamSubscription;
 
   //Alocamos a LoginBLoc() em uma varialvel streamSubscription para podermos
@@ -174,10 +174,10 @@ class LoginBLoc extends BlocBase with LoginValidators {
             if (await verifyPrivileges(user)) {
               //Se a "verifyPrivileges" retorna true para o usuario
               //é porq ele é administrador
-              _stateController.add(LoginState.SUCCESS);
-
               currentuser = FirebaseAuth.instance.currentUser;
               _currentUserController.add(currentuser);
+              _stateController.add(LoginState.SUCCESS);
+              await _loadCurrentUser();
             } else {
               //se "verifyPrivileges" retorna false
               //é porq ele não é administrador
@@ -212,9 +212,11 @@ class LoginBLoc extends BlocBase with LoginValidators {
 
 
     }).catchError((e){
+      print("XXXXXXXXXXXXXXXX O erro na tentativa de loging foi: $e");
       //CASO DÊ ERRO AO LOGAR
       onFail();
-      _stateController.add(LoginState.FAIL);
+      if (!_stateController.isClosed)
+        _stateController.add(LoginState.FAIL);
 
 
     });
@@ -273,12 +275,11 @@ class LoginBLoc extends BlocBase with LoginValidators {
 
   @override
   void dispose() {
-    /**Todos Controladores tem que ser fechado**/
+    /**Todos Controladores tm que ser fechado**/
     _emailController.close();
     _passwordController.close();
     _stateController.close();
     _currentUserController.close();
-
     _streamSubscription?.cancel();
   }
 }

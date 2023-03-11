@@ -38,7 +38,7 @@ class CartBloc extends BlocBase {
   }
 
   void setCoupom(String? coupomCode, int discountPercentage){
-    this.couponCode = couponCode;
+    couponCode = couponCode;
     this.discountPercentage = discountPercentage;
   }
 
@@ -54,8 +54,9 @@ class CartBloc extends BlocBase {
     //1- Para cada item em "products" multiplica quantidade X Preço
     // e o resultado acrescenta no valor do "price"
     for(CartProduct c in products){
-      if (c.productData != null)
+      if (c.productData != null) {
         price = c.productData!.price;
+      }
 
         if(price != null && c.quantity != null) {
 

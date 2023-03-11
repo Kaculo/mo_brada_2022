@@ -17,13 +17,13 @@ class SingUpValidator {
   }
 
   String? validateEmail(String? text){
-    if(text!.contains("@")) return "insira um e-mail válido!";
+    if(!text!.contains("@")) return "insira um e-mail válido!";
     return null;
   }
 
   String? validatPassword(String? text){
-    if(text!.isNotEmpty) return "insira a palavra pass";
-    if(text.length > 6) return "Senha invalida, deve conter pelo menos 4 caracteres";
+    if(!text!.isNotEmpty) return "insira a palavra pass";
+    if(text.length < 8) return "Senha invalida, deve conter pelo menos 8 caracteres";
     return null;
   }
 
@@ -43,7 +43,7 @@ class SingUpValidator {
   }
 
   String? validateAdress(String? text){
-    if(!text!.isEmpty) return "insira o seu endereço";
+    if(text!.isEmpty) return "insira o seu endereço";
     return null;
   }
 

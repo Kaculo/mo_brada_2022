@@ -30,11 +30,11 @@ class Store_Home_Screen extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: TextField(
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     hintText:
                     "Pequisar ${StoryType}s ou produtos",
-                    hintStyle: TextStyle(color: Colors.white),
+                    hintStyle: const TextStyle(color: Colors.white),
                     icon: Icon(Icons.search, color: Theme.of(context).primaryColorDark),
                     border: InputBorder.none
                 ),
@@ -42,7 +42,7 @@ class Store_Home_Screen extends StatelessWidget {
               ),
             ),
             centerTitle: true,
-            bottom: TabBar(
+            bottom: const TabBar(
               indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
@@ -56,22 +56,22 @@ class Store_Home_Screen extends StatelessWidget {
           ),
           //TabBarView -  É para colocar o que
           body: FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            future: fb_lojas.where('type', isEqualTo: StoryType).get(),
+            future: fb_lojas.where('type', isEqualTo: StoryType).get() as Future<QuerySnapshot<Map<String, dynamic>>>?,
             builder: (context, snapshot) {
               if (!snapshot.hasData)
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               else {
                 return TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     //.builder - é adicionado para que os items sejam carregados a medida que o ecran é deslizado.
                     GridView.builder(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         //gridDelegate - Quantos Intems terá a Grid
                         //e qual será o espaçamento entre eles.
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 4.0,
                           crossAxisSpacing: 4.0,
@@ -79,8 +79,15 @@ class Store_Home_Screen extends StatelessWidget {
                         ),
                         itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context, index) {
+
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
                           StoreData data = StoreData.fromDocument(
-                              snapshot.data?.docs[index]);
+                             snapshot.data!.docs[index]);
 
                           //PEGANDO A CATEGORIA DO PRODUTO
                           //Aqui utilizamos "this.snapshot" para chamar o
@@ -91,7 +98,7 @@ class Store_Home_Screen extends StatelessWidget {
                           return Store_List_Tile("grid", data);
                         }),
                     ListView.builder(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context, index) {
                           StoreData data = StoreData.fromDocument(

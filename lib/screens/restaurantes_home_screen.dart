@@ -26,8 +26,8 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
       child: Scaffold(
           appBar: AppBar(
             //O SnapShot chamado aqui é o da Categoria
-            title: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            title: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: TextField(
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
@@ -40,7 +40,7 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
               ),
             ),
             centerTitle: true,
-            bottom: TabBar(
+            bottom: const TabBar(
               indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
@@ -56,20 +56,20 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
           body: FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
             future: Firestore.collection('lojas').where('type', isEqualTo: 'restaurante').get(),
             builder: (context, snapshot) {
-              if (!snapshot.hasData)
-                return Center(
+              if (!snapshot.hasData) {
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
-              else {
+              } else {
                 return TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     //.builder - é adicionado para que os items sejam carregados a medida que o ecran é deslizado.
                     GridView.builder(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         //gridDelegate - Quantos Intems terá a Grid
                         //e qual será o espaçamento entre eles.
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 4.0,
                           crossAxisSpacing: 4.0,
@@ -77,6 +77,12 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
                         ),
                         itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context, index) {
+
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                           StoreData data = StoreData.fromDocument(
                               snapshot.data!.docs[index]);
 
@@ -89,7 +95,7 @@ FirebaseFirestore Firestore = FirebaseFirestore.instance;
                           return Expanded(child: Store_List_Tile("grid", data));
                         }),
                     ListView.builder(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         itemCount: snapshot.data?.docs.length,
                         itemBuilder: (context, index) {
                           StoreData data = StoreData.fromDocument(

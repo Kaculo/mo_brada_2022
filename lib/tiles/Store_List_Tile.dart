@@ -57,7 +57,7 @@ class Store_List_Tile extends StatelessWidget {
                           fontSize: 17.0,
                           fontWeight: FontWeight.bold)),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 4, right: 4),
                       child: Divider(
                         height: 5,
@@ -66,9 +66,9 @@ class Store_List_Tile extends StatelessWidget {
                     ),
                     Text(store.description,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 13.0),),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 4, right: 4),
                       child: Divider(
                         height: 5,
@@ -77,7 +77,7 @@ class Store_List_Tile extends StatelessWidget {
                     ),
                     Expanded(
                       child: AutoSizeText(store.address,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12.0),
                         maxLines: 2,),
                     )
@@ -114,7 +114,7 @@ class Store_List_Tile extends StatelessWidget {
                           fontSize: 17.0,
                           fontWeight: FontWeight.bold)),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(left: 4, right: 4),
                       child: Divider(
                         height: 5,
@@ -123,14 +123,14 @@ class Store_List_Tile extends StatelessWidget {
                     ),
                     Text(store.description,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 12.0),),
                     /*Padding(
                       padding: EdgeInsets.only(left: 4, right: 4),
                       child:
                     ),*/
                     AutoSizeText(store.address,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 12.0),
                       maxLines: 2,)
                   ],

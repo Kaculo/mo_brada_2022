@@ -120,7 +120,7 @@ class CartTile extends StatelessWidget {
                         //***Estamos a armazenar esta informação, para não termos que ir a busca
                         //sempre o user abre o carrinho, apenas se reiniciar o App.
                         cartProduct.productData =
-                            ProductData.fromDocument((snapshot.data));
+                            ProductData.fromDocument((snapshot.data as DocumentSnapshot<Map<String, dynamic>>));
                         return _buildContent();
                       } else {
                         return Container(

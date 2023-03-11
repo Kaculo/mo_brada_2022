@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:mo_brada_2022/blocs/login_bloc.dart';
 import 'package:mo_brada_2022/tabs/home_tab.dart';
 import 'package:mo_brada_2022/validators/singup_validator.dart';
@@ -33,90 +34,92 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Criar Conta"),
+        title: const Text("Criar Conta"),
         centerTitle: true,
       ),
       body:
       StreamBuilder(
           stream: _loginBLoc.outState,
-          initialData: LoginState.LOADING,
+         // initialData: LoginState.LOADING,
+          initialData: LoginState.IDLE,
           builder: (context, snapshot) {
             switch (snapshot.data) {
-              case LoginState.SUCCESS:
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => HomeTab())
-                );
+             case LoginState.SUCCESS:
+                SchedulerBinding.instance.addPostFrameCallback((_) {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => HomeTab())
+                  );
+                });
                 break;
               case LoginState.FAIL:
                 showDialog(
                     context: context,
                     builder: (context) =>
-                        AlertDialog(
+                        const AlertDialog(
                           title: Text("Erro"),
                           content: Text(
                               "Lamentamos, alguma coisa deu errado!"),
-
                         ));
                 break;
               case LoginState.LOADING:
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
                 break;
               case LoginState.IDLE:
                 return Form(
                   key: _formKey,
                   child: ListView(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     children: <Widget>[
                       TextFormField(
                           controller: _firstNameController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "*Nome próprio (1º nome)"),
                           validator: validatePrimeiroNome
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16.0,
                       ),
                       TextFormField(
                           controller: _LastNameController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "*Apelido (último nome)"),
                           validator: validateUltimoNome
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16.0,
                       ),
                       TextFormField(
                           controller: _NIFController,
-                          decoration: InputDecoration(hintText: "NIF"),
-                          validator: validateAdress
+                          decoration: const InputDecoration(hintText: "NIF"),
+                          validator: validateNIF
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16.0,
                       ),
                       TextFormField(
                           controller: _addressController,
-                          decoration: InputDecoration(hintText: "*Endereço"),
+                          decoration: const InputDecoration(hintText: "*Endereço"),
                           validator: validateAdress
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16.0,
                       ),
                       TextFormField(
                           controller: _emailController,
-                          decoration: InputDecoration(hintText: "*E-mail"),
+                          decoration: const InputDecoration(hintText: "*E-mail"),
                           keyboardType: TextInputType.emailAddress,
                           validator: validateEmail
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16.0,
                       ),
                       TextFormField(
                           controller: _passController,
-                          decoration: InputDecoration(hintText: "*Senha"),
+                          decoration: const InputDecoration(hintText: "*Senha"),
                           obscureText: true,
                           validator: validatPassword
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16.0,
                       ),
 
@@ -124,11 +127,11 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
                         height: 44,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFBABF21),
+                              backgroundColor: const Color(0xFFBABF21),
                               disabledBackgroundColor: Theme
                                   .of(context)
                                   .primaryColor),
-                          child: Text(
+                          child: const Text(
                             "Criar Conta",
                             style: TextStyle(fontSize: 18.0, color: Colors.white,),
                           ),
@@ -139,7 +142,7 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
                               //A SENHA JUNTO COM O USUÁRIO
                               Map<String, dynamic> userData = {
                                 "first_name": _firstNameController.text,
-                                "last_name": _firstNameController.text,
+                                "last_name": _LastNameController.text,
                                 "email": _emailController.text,
                                 "address": _addressController.text,
                                 "nif": _NIFController.text
@@ -149,14 +152,14 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
                                   pass: _passController.text,
                                   onSuccess: () {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(
+                                        SnackBar(content: const Text(
                                             "Usuário criado com sucesso!"),
                                           backgroundColor: Theme
                                               .of(context)
                                               .primaryColor,
-                                          duration: Duration(seconds: 2),)
+                                          duration: const Duration(seconds: 2),)
                                     );
-                                    Future.delayed(Duration(seconds: 2)).then((
+                                    Future.delayed(const Duration(seconds: 2)).then((
                                         _) {
                                       Navigator.of(context).pop();
                                     });
@@ -164,7 +167,7 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
 
                                   onFail: () {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(
+                                        const SnackBar(content: Text(
                                             "Falha ao criar usuário!"),
                                           backgroundColor: Colors.redAccent,
                                           duration: Duration(seconds: 3),)

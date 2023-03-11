@@ -2,26 +2,36 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:mo_brada_2022/screens/home_screen.dart';
 import 'blocs/login_bloc.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(new MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+}
+
 
 class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return FutureBuilder(
-      // Initialize FlutterFire
-      future: Firebase.initializeApp(),
+   //    Initialize FlutterFire
+        future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        ),
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
           print("O erro do snap é: ${snapshot.error}");
         }
-
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return BlocProvider(
@@ -32,7 +42,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
                 title: "MoBrada",
                 theme: ThemeData(
-                    primarySwatch: Colors.yellow,
+                    primarySwatch: Colors.red,
                     primaryColor: Colors.red
                 ),
                 debugShowCheckedModeBanner: false,

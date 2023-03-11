@@ -1,5 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:carousel_pro/carousel_pro.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:mo_brada_2022/blocs/cart_bloc.dart';
 import 'package:mo_brada_2022/blocs/login_bloc.dart';
@@ -45,7 +47,17 @@ class _ProductScreenState extends State<ProductScreen> {
           AspectRatio(
             aspectRatio: 0.9,
             //Todo: Explorar o Plugn Carousel
-            child: Carousel(
+            child:
+            CarouselSlider(
+              options: CarouselOptions(),
+              items: product.images.map((url) {
+                return Container(
+                    child: Center(
+                    child: Image.network(url, fit: BoxFit.cover, width: 1000)
+                ));
+              }).toList(),
+            )
+            /* Carousel(
               //Transformando os Links das Imagens em Imagens
               //Depois tranformamos essas Imagens em uma Lista (array)
               // porque o "carousel" precisa de imagens e não links.
@@ -59,7 +71,7 @@ class _ProductScreenState extends State<ProductScreen> {
               dotColor: primaryColor,
               //autoplay-faz os items no carousel mudarem automaticamente
               autoplay: false,
-            ),
+            ),*/
           ),
           Padding(
             padding: EdgeInsets.all(16.6),

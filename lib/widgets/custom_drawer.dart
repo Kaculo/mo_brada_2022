@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mo_brada_2022/blocs/login_bloc.dart';
 import 'package:mo_brada_2022/screens/login_screen.dart';
+import 'package:mo_brada_2022/screens/singup_screen.dart';
 import 'package:mo_brada_2022/tiles/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -15,7 +16,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget _buidDrawerBack() => Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(
@@ -40,15 +41,15 @@ class CustomDrawer extends StatelessWidget {
         children: <Widget>[
           _buidDrawerBack(),
           ListView(
-            padding: EdgeInsets.only(left: 32.0, top: 16.0),
+            padding: const EdgeInsets.only(left: 32.0, top: 16.0),
             children: <Widget>[
               Container(
-                  margin: EdgeInsets.only(bottom: 8.0),
-                  padding: EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 8.0),
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                  padding: const EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 8.0),
                   height: 170.0,
                   child: Stack(
                     children: <Widget>[
-                      Positioned(
+                      const Positioned(
                         top: 8.0,
                         left: 8.0,
                         child: Text(
@@ -67,34 +68,52 @@ class CustomDrawer extends StatelessWidget {
                              return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  "Olá, ${!_loginBLoc.isLoggedIn() ? "" : _loginBLoc.
-                                  userData["first_name"]}",
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Olá, ${!_loginBLoc.isLoggedIn() ? "não tem secção iniciada" : _loginBLoc.
+                                      userData["first_name"]}",
+                                      style: const TextStyle(
+                                          fontSize: 18.0, fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                    Container(
+                                      width: 120,
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.edit),
+                                      color: Theme.of(context).hintColor,
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(builder: (context)=>SingUpScreen()));
+                                      },
+                                    ),
+                                  ],
+
                                 ),
                                 GestureDetector(
                                   child:  Row(
                                     children:
                                     !_loginBLoc.isLoggedIn() ? [
                                       Icon(Icons.arrow_forward,
-                                        color: Theme.of(context).primaryColorDark,
+                                        color: Theme.of(context).hintColor,
                                       ),
                                       Text(
                                         "Entre ou cadastre-se >",
                                         style: TextStyle(
-                                            color: Theme.of(context).primaryColorDark,
+                                            color: Theme.of(context).hintColor,
                                             fontSize: 16.0, fontWeight: FontWeight.bold),
                                       ),
                                     ] : [
                                       Icon(Icons.arrow_back,
-                                        color: Theme.of(context).primaryColorDark,
+                                        color: Theme.of(context).hintColor,
                                       ),
                                       Text(
                                         "Sair",
                                         style: TextStyle(
-                                            color: Theme.of(context).primaryColorDark,
+                                            color: Theme.of(context).hintColor,
                                             fontSize: 16.0, fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -115,7 +134,7 @@ class CustomDrawer extends StatelessWidget {
                       )
                     ],
                   )),
-              Divider(),
+              const Divider(),
               DrawerTile(Icons.home, "Início", pageController, 0),
               DrawerTile(Icons.list, "Productos", pageController, 1),
               DrawerTile(Icons.location_on, "Lojas", pageController, 2),

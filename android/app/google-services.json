@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "981975250465",
+    "firebase_url": "https://mobrada-f0adb.firebaseio.com",
+    "project_id": "mobrada-f0adb",
+    "storage_bucket": "mobrada-f0adb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981975250465:android:0f42186b2ca95e0b879560",
+        "android_client_info": {
+          "package_name": "ao.caculo.gestor_de_loja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981975250465-cdu7s7ua0si84ov5qp1mkf9hcru7aqvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBic4aw0t7LkjL36DGatBSc0RN2ReWpgN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981975250465-cdu7s7ua0si84ov5qp1mkf9hcru7aqvr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "981975250465-b5fj63i01ohadjqvihc54e6laabiekpu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ao.caculo.moBrada"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981975250465:android:bd054d49b831913c879560",
+        "android_client_info": {
+          "package_name": "ao.caculo.mo_brada"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981975250465-cdu7s7ua0si84ov5qp1mkf9hcru7aqvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBic4aw0t7LkjL36DGatBSc0RN2ReWpgN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981975250465-cdu7s7ua0si84ov5qp1mkf9hcru7aqvr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "981975250465-b5fj63i01ohadjqvihc54e6laabiekpu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ao.caculo.moBrada"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981975250465:android:6d09304bfefe8060879560",
+        "android_client_info": {
+          "package_name": "com.example.mo_brada_2022"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981975250465-cdu7s7ua0si84ov5qp1mkf9hcru7aqvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBic4aw0t7LkjL36DGatBSc0RN2ReWpgN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981975250465-cdu7s7ua0si84ov5qp1mkf9hcru7aqvr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "981975250465-b5fj63i01ohadjqvihc54e6laabiekpu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ao.caculo.moBrada"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981975250465:android:b4730016b1e86e1b879560",
+        "android_client_info": {
+          "package_name": "com.example.teste_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981975250465-cdu7s7ua0si84ov5qp1mkf9hcru7aqvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBic4aw0t7LkjL36DGatBSc0RN2ReWpgN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981975250465-cdu7s7ua0si84ov5qp1mkf9hcru7aqvr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "981975250465-b5fj63i01ohadjqvihc54e6laabiekpu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ao.caculo.moBrada"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,16 +15,16 @@ class StoreData{
   late List store_images;
   late List product_options;
 
-  StoreData.fromDocument(DocumentSnapshot<Map<String, dynamic>> snapshot){
-    id = snapshot.id;
-    store_category = snapshot.data()!['store_category'];
-    title = snapshot.data()!['title'];
-    address = snapshot.data()!["address"];
-    description = snapshot.data()!['description'];
-    phone_number = snapshot.data()!["phone_number"];
-    store_images = snapshot.data()!["images"];
-    email = snapshot.data()!["email"];
-    type = snapshot.data()!["type"];
+ StoreData.fromDocument(DocumentSnapshot<Map<String, dynamic>> snapshot){
+  id = snapshot.id;
+  store_category = snapshot.data()!['store_category'];
+  title = snapshot.data()?['title'];
+  address = snapshot.data()?["address"];
+  description = snapshot.data()?['description'];
+  phone_number = snapshot.data()?["phone_number"];
+  store_images = snapshot.data()?["images"];
+  email = snapshot.data()?["email"];
+  type = snapshot.data()?["type"];
   }
 
 /**TODO: PODE SERVIR PARA APRESENTAR OS DADOS DA LOJA**/
