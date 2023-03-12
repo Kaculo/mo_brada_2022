@@ -31,6 +31,15 @@ class LoginBLoc extends BlocBase with LoginValidators {
   //Map Dinámico para armazenar os dados do usuário
   Map<String, dynamic> userData = Map();
 
+  //Map que armazena os dados do usuário não gravados
+  Map<String, dynamic> unsavedUserData = {
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "address": "",
+    "nif": "",
+  };
+
 
   //CARREGANDO O USER AO ABRIR O APP
   @override
@@ -82,6 +91,38 @@ class LoginBLoc extends BlocBase with LoginValidators {
     });
   }
 
+
+  void updateUserData({
+    required Map<String, dynamic> userData,
+    //VoidCAllback é uma função utilizada apenas
+    //dentro do ambiente de declaração, neste caso,
+    //a função.
+    required VoidCallback onSuccess,
+    required VoidCallback onFail}) {
+    //TENTANDO CRIAR O USUÁRIO
+    _auth.currentUser?.getIdToken().then((user) async {
+      //SALVANDO USUÁRIO CRIADO
+      currentuser = _auth.currentUser;
+      //SALVANDO DADOS DO USUÁRIO CRIADO
+      await _saveUserData(userData);
+
+      //CASO O USUÁRIO SEJA CRIADO COM SUCESSO
+      onSuccess();
+
+      /// isLoading = false;
+
+      notifyListeners();
+    }).catchError((e) {
+      print("o erro na criação do usuário foi é: $e");
+      //CASO HAJA ERRO  NA CRIAÇÃO DO USUÁRIO
+      onFail();
+
+      ///isLoading = false;
+      notifyListeners();
+    });
+  }
+
+
   //Função que grava os dados do usuário
   Future<Null> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
@@ -103,12 +144,12 @@ class LoginBLoc extends BlocBase with LoginValidators {
     currentuser ??= await _auth.currentUser;
     if (currentuser != null) {
       //Se Carregando dados do User
-      if (userData["name"] == null) {
+      if (userData["first_name"] == null) {
         DocumentSnapshot docUser =
         await FirebaseFirestore.instance.collection("users").
         doc(currentuser?.uid).get();
         userData = docUser.data() as Map<String, dynamic>;
-        print("************* Ao carregar o user estes estva ${userData.isEmpty}");
+        print("************* Ao carregar o userDAta estes estava ${userData.isEmpty}");
       }
     }
   }

@@ -35,6 +35,8 @@ class UserBloc extends BlocBase {
 
   FirebaseFirestore _FirebaseFirestore = FirebaseFirestore.instance;
 
+
+
   UserBloc() {
     _addUsersListener();
   }
@@ -97,6 +99,9 @@ class UserBloc extends BlocBase {
       });
     });
   }
+
+
+
 
   //para o App não ficar pesado convém usar "getDocuments" em vez de
   // "snapshots" que busca dados em tempo real.
