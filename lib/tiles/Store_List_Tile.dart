@@ -1,24 +1,36 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:mo_brada_2022/data/product_data.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mo_brada_2022/data/store_data.dart';
-import 'package:mo_brada_2022/screens/category_screen.dart';
 import 'package:mo_brada_2022/screens/product_catergory_screen.dart';
-
-
+import 'dart:math';
+import '../blocs/location_bloc.dart';
 import 'category_tile.dart';
 
 
-class Store_List_Tile extends StatelessWidget {
+
+  class Store_List_Tile extends StatelessWidget {
   final String type;
   final StoreData store;
+
+  var _locationBloc = BlocProvider.getBloc<LocationBloc>();
+
 
   /*Future<QuerySnapshot> firestore = Firestore.instance.collection('lojas')
       .doc('ola_food')
       .collection('Categoria_de_produtos').get();*/
 
   Store_List_Tile(this.type, this.store);
+
+
+  Set<Marker> markers = Set(); //markers for google map
+  Map<PolylineId, Polyline> polylines = {}; //polylines to show direction
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +92,35 @@ class Store_List_Tile extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 12.0),
                         maxLines: 2,),
+                    ),
+                    Expanded(
+                      child: AutoSizeText(store.type, textAlign: TextAlign.right,
+                        style: const TextStyle(
+                            fontSize: 10.0,
+                          fontWeight: FontWeight.bold
+                        ),
+                        maxLines: 2,),
+                    ),
+                    StreamBuilder(
+                      stream: _locationBloc.outDistance,
+                      builder: (context, snapshot) {
+                        return
+                          AspectRatio(
+                            aspectRatio: 1,
+                            child: GoogleMap(
+                          initialCameraPosition: CameraPosition(
+                          target:LatLng(45.521563, -122.677433),
+                        //LatLng(_locationBloc.lat, _locationBloc.long),
+                        zoom: 14.0,
+                        ),
+                        markers: _locationBloc.markers,
+                        zoomControlsEnabled: true,
+                        mapType: MapType.normal,
+                        myLocationEnabled: true,
+                        onMapCreated: _locationBloc.onMapCreated,
+                        ));
+
+                      }
                     )
                   ],
                 ),
@@ -143,4 +184,7 @@ class Store_List_Tile extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

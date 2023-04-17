@@ -1,4 +1,10 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
+
+import '../blocs/login_bloc.dart';
+
 class SingUpValidator {
+
+  var _s1;
 
   String? validateImages(List images){
     if(images.isEmpty) return "Adicione imagens da Loja ";
@@ -23,8 +29,15 @@ class SingUpValidator {
 
   String? validatPassword(String? text){
     if(!text!.isNotEmpty) return "insira a palavra pass";
-    if(text.length < 8) return "Senha invalida, deve conter pelo menos 8 caracteres";
+    if(text.length < 8) {
+      return "Senha invalida, deve conter pelo menos 8 caracteres!";}
+    _s1 = text;
     return null;
+  }
+
+  String? validatPassword2(String? text){
+    if(text != _s1) return "As senhas inseridas são diferentes!";
+     return null;
   }
 
   String? validatePhone(String text){
@@ -32,7 +45,7 @@ class SingUpValidator {
     if(phoneNubmer != null){
       if(
       text.length < 9)
-        return "Insira um número de telemovel válido";
+        return "Insira um número de telemovel válido!";
     }
     return null;
   }
@@ -46,8 +59,6 @@ class SingUpValidator {
     if(text!.isEmpty) return "insira o seu endereço";
     return null;
   }
-
-
 
 
 }

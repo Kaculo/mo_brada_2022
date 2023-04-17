@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginValidators {
                             foregroundColor: Colors.red[700]
                         ),
                         onPressed: () {
-                          if (_loginBloc.outEmail.isEmpty != null) {
+                          if (_loginBloc.getEml == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Insira seu e-mail para recuperar senha!"),
                                   backgroundColor: Colors.redAccent,

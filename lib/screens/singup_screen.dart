@@ -21,10 +21,9 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
   final _LastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+  final _pass2Controller = TextEditingController();
   final _addressController = TextEditingController();
   final _NIFController = TextEditingController();
-  final _CreationDateController = TextEditingController();
-  final _Last_UpdateController = TextEditingController();
   final _NotificationsController = TextEditingController();
   final _Money_BalanceController = TextEditingController();
   final _Loyalty_PointsController = TextEditingController();
@@ -83,6 +82,10 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
 
   }
   Form showForm() {
+
+    DateTime now = DateTime.now();
+    var currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute);
+
     return Form(
     key: _formKey,
     child: ListView(
@@ -114,6 +117,19 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
         const SizedBox(
           height: 16.0,
         ),
+
+        TextFormField(
+          controller: _emailController,
+          decoration: const InputDecoration(
+              hintText: "Insira o email",
+              label: Text("*Email")
+          ),
+          validator: validateEmail,
+          //initialValue: _loginBLoc.isLoggedIn() ? "" : _loginBLoc.userData["last_name"]
+        ),
+        const SizedBox(
+          height: 16.0,
+        ),
         TextFormField(
             controller: _NIFController,
             decoration: const InputDecoration(hintText: "NIF",
@@ -132,17 +148,6 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
         const SizedBox(
           height: 16.0,
         ),
-        !_loginBLoc.isLoggedIn() ?
-        TextFormField(
-            controller: _emailController,
-            decoration: const InputDecoration(hintText: "*E-mail",
-                label: Text("*E-mail")),
-            keyboardType: TextInputType.emailAddress,
-            validator: validateEmail
-        )  : Container(),
-        const SizedBox(
-          height: 16.0,
-        ),
 
         !_loginBLoc.isLoggedIn() ?
         TextFormField(
@@ -151,6 +156,33 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
                 label: Text("*Senha")),
             obscureText: true,
             validator: validatPassword
+        ) : Container(),
+        const SizedBox(
+          height: 16.0,
+        ),
+        !_loginBLoc.isLoggedIn() ?
+        TextFormField(
+            controller: _pass2Controller,
+            decoration: const InputDecoration(hintText: "*Repita a senha inserida",
+                label: Text("Repita a senha inserida")),
+            obscureText: true,
+            validator: validatPassword2
+        ) : Container(),
+
+               _loginBLoc.isLoggedIn() ?
+        Text(
+          "usuário registado desde ${_loginBLoc.userData["creation_date"]}",
+          style: const TextStyle(color: Colors.black45),
+        ) : Container(),
+
+        const SizedBox(
+          height: 8.0,
+        ),
+
+        _loginBLoc.isLoggedIn() ?
+        Text(
+          "Última alteração foi em ${_loginBLoc.userData["last_update_date"]}",
+          style: const TextStyle(color: Colors.black45),
         ) : Container(),
         const SizedBox(
           height: 16.0,
@@ -166,7 +198,7 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
                     .primaryColor),
             child: Text(
               " ${_loginBLoc.isLoggedIn() ? "Guardar alterações" : "Criar conta" }",
-              style: TextStyle(fontSize: 18.0, color: Colors.white,),
+              style: const TextStyle(fontSize: 18.0, color: Colors.white,),
             ),
 
             onPressed: () {
@@ -178,9 +210,9 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
                   "last_name": _LastNameController.text,
                   "email": _emailController.text,
                   "address": _addressController.text,
-                  "nif": _NIFController.text,
-                  "creation_date": _CreationDateController.text,
-                  "last_update_date": _Last_UpdateController.text,
+                  "nif": _NIFController.text.toUpperCase(),
+                  "creation_date": _loginBLoc.isLoggedIn() ? _loginBLoc.userData["creation_date"] : currentTime,
+                  "last_update_date": currentTime,
                   "notifications": _NotificationsController.text,
                   "money_balance": _Money_BalanceController.text,
                   "loyalty_points": _Loyalty_PointsController.text,
@@ -253,6 +285,11 @@ class _SingUpScreenState extends State<SingUpScreen> with SingUpValidator {
         _emailController.text = _loginBLoc.userData["email"];
         _addressController.text = _loginBLoc.userData["address"];
         _NIFController.text = _loginBLoc.userData["nif"];
+       _NotificationsController.text = _loginBLoc.userData["notifications"];
+       _Money_BalanceController.text = _loginBLoc.userData["money_balance"];
+     _Loyalty_PointsController.text = _loginBLoc.userData["loyalty_points"];
+    _Active_PlanController.text = _loginBLoc.userData["active_plan"];
+         _Adress_BookController.text = _loginBLoc.userData["adress_book"];
     }
 
 

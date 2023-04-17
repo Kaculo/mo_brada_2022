@@ -4,6 +4,10 @@
         android:label="mo_brada_2022"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+       <!-- TODO: Add your Google Maps API key here -->
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyDcVep2HYdKtEc9U6S6lM3XiMeBcUJpc1Y"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,4 +35,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 </manifest>

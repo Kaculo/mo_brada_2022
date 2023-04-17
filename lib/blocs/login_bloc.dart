@@ -40,7 +40,6 @@ class LoginBLoc extends BlocBase with LoginValidators {
     "nif": "",
   };
 
-
   //CARREGANDO O USER AO ABRIR O APP
   @override
   void addListener(VoidCallback listener) {
